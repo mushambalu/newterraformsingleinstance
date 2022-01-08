@@ -1,0 +1,33 @@
+{
+    "_comment" : "Create a AWS AMI ith AMZ Linux 2018 with Java and Tomcat",
+    "variables": {
+      "aws_access_key": "",
+      "aws_secret_key": ""
+    },
+    "builders": [{
+      "access_key": "AKIA2CSMEGLYSJWJ5BOR",
+      "secret_key": "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",
+      "type": "amazon-ebs",
+      "region": "ap-south-1",
+      "source_ami": "ami-0002bdad91f793433",
+      "instance_type": "t2.micro",
+      "ssh_username": "ec2-user",
+      "ami_name": "DevOpsClass-B18-Build-{{isotime | clean_resource_name}}",
+      "vpc_id": "vpc-04f93ae33fb8115d3",
+      "subnet_id": "subnet-0dd96bba1a3afef44"    
+    }],
+    "provisioners": [{
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "sudo yum update -y",
+        "sudo yum install nginx -y",
+        "sudo yum install git -y",
+        "sudo service nginx start",
+        "sudo systemctl enable nginx"
+        ]
+      }
+    ]
+  }
+
+
